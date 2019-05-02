@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"log"
 	"net"
 	"os"
@@ -12,8 +13,12 @@ import (
 const bufferSize = 8 * 1024
 
 func main() {
+	// Parse flags
+	addrStr := "224.0.0.251:5353"
+	flag.StringVar(&addrStr, "a", addrStr, "Address for multicast DNS")
+	flag.Parse()
 	// Resolve UDP address
-	addr, err := net.ResolveUDPAddr("udp", "224.0.0.251:5353")
+	addr, err := net.ResolveUDPAddr("udp", addrStr)
 	if err != nil {
 		log.Fatal(err)
 	}
